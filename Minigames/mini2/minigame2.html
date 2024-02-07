@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Mission: Avoiding Tasks!</title>
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 vPosition;
+
+            void main(){
+                gl_Position = vPosition;
+            }
+        </script>
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+            uniform vec4 uColor;
+
+            void main(){
+                gl_FragColor = uColor;
+            }
+        </script>
+        
+        <script type="text/javascript" src="../mini2/webgl-utils.js"></script>
+        <script type="text/javascript" src="../mini2/InitShaders.js"></script>
+        <script type="text/javascript" src="../mini2/MV.js"></script>
+        <script type="text/javascript" src="../mini2/geometry.js"></script>
+        <script type="text/javascript" src="minigame2.js"></script>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game-menu-layout {
+      text-align: center;
+    }
+
+    .game-menu-window {
+      display: inline-block;
+      text-align: center;
+    }
+
+    img {
+      height: 400px;
+      width: 400px;
+      display: block;
+      margin-top: 10px;
+      margin-left: 90px;
+    }
+    .showSmallScreen {
+      width: 500px;
+      height: 50px;
+      margin-left: 25%;
+      margin-top: 20px;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      background-color: transparent; 
+      border: none; 
+      cursor: pointer; 
+    }
+    .smallScreen {
+      width: 1024px;
+      height: 512px;
+      margin-bottom: 590px;
+      margin-right: 750px;
+      display: none; /* 처음에는 화면에 표시하지 않음 */
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="game-menu-layout" id="game-menu">
+    <div class="game-menu-window">
+      <h1 style="text-align: center; margin-bottom: 5px;">You arrive at the student center safely !</h1>
+      <button class="showSmallScreen" style="margin-left:1%; margin-top:5px; height: 50px; width: 500px;" onclick="showSmallScreen()">
+        <span style="font-size: 50%;">Click▶</span> &nbsp;&nbsp;&nbsp;&nbsp;Mission: Avoiding Tasks !
+      </button>
+      <img src="./moodang.png"></img>
+      <h3>How to Play ??</h3>
+      <h5>&nbsp;1. Press the button "Start Game"</h5>
+      <h5>&nbsp;2. time limit : 30s</h5>
+      <h5>&nbsp;&nbsp;&nbsp;press ▼ : The box hides the moodang. </h5>
+      <h5>&nbsp;&nbsp;&nbsp;press ▶ : Moodang can move to the right</h5>
+
+      <h3>Description</h3>
+      <h5>&nbsp;Let's escape to take a break from Gacheon.</h5>
+      <h5>&nbsp;The student coucil(moodang) tries to take a break from studens(gachon).</h5>
+
+    </div>
+  </div>
+  <div class="smallScreen">
+    <div class="game-menu-layout">
+      <div class="game-menu-window" style="margin-top: 100px; margin-left: 50px;">
+        <h1 style="text-align: center; margin-left: 350px; margin-bottom: 5px;">Mission: Avoiding Tasks !!!</h1>
+        <button class="startGame" style="margin-left:25%; margin-top:70px; height: 50px; width: 100px;" onclick="game()">Start Game</button>
+        <button class="backToMain" style="margin-left: 10%; height: 50px; width: 150px;" onclick="backToMain()">Back To Driving !</button>
+        <canvas id="gl-canvas" width="1024" height="512" style="position:static; margin-top: 100px; margin-left: 350px; z-index: 1;">
+          Oops... your browser doesn't support the HTML5 canvas element
+        </canvas>
+        <img id="background" src="gachon.png" style="z-index: 0;">
+        <div id="timer" style="position: absolute; top: 325px; right: 350px; font-size: 20px; color: aliceblue;"></div>
+        <img id="gc_front" src="gc_front.png" width="400px" height="400px" alt="무한이f">
+        <img id="gc_side" src="gc_side.png" width="400px" height="400px" alt="무한이1" style="display:none;"/>
+        <img id="gc_side2" src="gc_side2.png" width="400px" height="400px" alt="무한이2" style="display:none;"/>
+        <img id="gc_side3" src="gc_side3.png" width="400px" height="400px" alt="무한이3" style="display:none;"/>
+        <img id="moodang_front" src="moodang_front.png" width="400px" height="400px" alt="무당이"/>
+        <img id="box" src="box.png" width="200px" height="150px" alt="박스"/>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showSmallScreen() {
+      // 처음에는 smallScreen을 화면에 표시하고, 나머지는 감춤
+      document.querySelector('.game-menu-layout').style.display = 'none';
+      document.querySelector('.smallScreen').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>

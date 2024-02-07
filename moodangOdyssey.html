@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MOODANG ODYSSEY</title>
+<meta charset="UTF-8">
+<meta name="description" content="a webgl game">
+<meta name="keywords" content="webgl game canvas javascript">
+<meta name="author" content="nemo">
+<meta charset="UTF-8">
+
+<!-- 스타일시트 연결 -->
+<link rel="stylesheet" type="text/css" href="app/css/game.css" />
+
+<!-- 필요한 라이브러리와 스크립트들을 불러옵니다. -->
+<script src="libs/three.js"></script>
+
+<script src="libs/jquery-1.6.4.js"></script>
+<script src="libs/jquery.mousewheel.js"></script>
+<script src="libs/RequestAnimationFrame.js"></script>
+
+<script src="libs/digitaldisplay.js"></script>
+<script src="libs/speedometer.js"></script>
+<script src="libs/themes/default.js"></script>
+<script src="libs/themes/racing-black.js"></script>
+
+<script src="sim/sim.js"></script>
+<script src="sim/animation.js"></script>
+<script src="sim/webGLDetector.js"></script>
+<script src="app/jsonModel.js"></script>
+<script src="app/car.js"></script>
+<script src="app/player.js"></script>
+<script src="app/exhaust.js"></script>
+<script src="app/environment.js"></script>
+<script src="app/game.js"></script>
+
+<script src="app/xcanvas.js"></script>
+<script src="app/tbe.js"></script>
+
+<script>
+    var game_volume = 0; // 게임 내의 음량 초기값 설정
+    
+    // 오디오 파일들을 불러와서 sounds 오브젝트를 반환
+	function loadSounds() {
+		var sounds = {
+			driving: document.getElementById('driving'),
+			rev_short: document.getElementById('rev_short'),
+			rev_long: document.getElementById('rev_long'),
+			bounce: document.getElementById('bounce'),
+			crash: document.getElementById('crash'),
+		};
+
+		return sounds;
+	}
+
+	// 모든 사운드의 볼륨을 조정
+	function adjustVolume(sounds, volume) {
+		for (sound in sounds) {
+			sounds[sound].volume = volume;
+		}
+	}
+
+	var app = null;
+	
+	// 문서가 준비되면 실행되는 함수
+	$(document).ready(function() {
+			var container = document.getElementById("container");
+			
+			try {
+				// WebGL 지원 여부 확인
+				Sim.WebGLDetector.detectWebGL();
+
+				var timer = document.getElementById('elapsedTime');
+				var odometer = document.getElementById('odometer');
+				var kmph = document.getElementById('kmph');
+				var rpm = document.getElementById('rpm');
+
+				var sounds = loadSounds();
+				adjustVolume(sounds, game_volume);
+				
+				// 속도계 구성
+	            speedometer = new Speedometer('speedometer', {theme: 'racing-black', max:250, threshold:150});
+	            //speedometer.draw();
+	            //speedometer.addEventListener('speedometer:animateend', function() {
+	            	//controls.start();
+	            //});
+	
+	            // 타코미터 구성
+	            tachometer = new Speedometer('tachometer', {theme: 'racing-black', max:5000, threshold:3500});
+	            //tachometer.draw();
+	            //tachometer.addEventListener('speedometer:animateend', function() {
+	            	//tachcontrols.start();
+	            //});
+				app = new mooDang();
+				app.init({
+					container: container, 
+					//hud: {
+						//speedometer: speedometer,
+						//tachometer: tachometer,
+						//timer: timer, 
+						//odometer: odometer
+					//},
+					sounds: sounds,
+				});
+
+	            timer.style.display = 'block';
+	            odometer.style.display = 'block';
+	            kmph.style.display = 'block';
+	            rpm.style.display = 'block';
+
+	        	app.focus();
+				app.run();
+			} catch(e) {
+				container.innerHTML = e.toString();
+			}
+		}
+	);
+
+	// 재시작 버튼 클릭 시 실행되는 함수
+	function onRestartClicked() {
+		app.restart();
+	}
+
+</script>
+</head>
+<body>
+    <center><h1>MOODANG ODYSSEY</h1></center>
+	
+	<iframe id="mini1" style="display:none; width:90%; height:90%;"></iframe>
+	<iframe id="mini2" style="display:none; width:90%; height:90%;"></iframe>
+	<iframe id="mini3" style="display:none; width:90%; height:90%;"></iframe>
+    
+	<div id="container" style="width:90%; height:90%; position:absolute; outline:none; background-color:#3fafdd;"></div>
+
+	<div id="kmph">
+	<!--속도-->
+       <div id="speedometer"></div>
+	</div>
+	<!--RPM-->
+	<div id="rpm">
+	
+       <div id="tachometer"></div>
+	</div>
+    <!--타코미터-->
+    <div id="odometer">
+    <!--오도미터-->
+    </div>
+    
+    <div id="elapsedTime">
+   <!--소요시간-->
+    </div>
+    
+   <div id="overlay" class="overlay">
+    <!-- 레이스 완료 메시지를 표시하는 부분 -->
+    <div id="header" class="header">Race Complete</div>
+    
+    <!-- 경과 시간과 최고 기록을 표시하는 부분 -->
+    <div id="contents" class="contents">
+        등교 완료<br></br>
+        좋은 하루 되세요!
+    </div>
+    
+    <!-- 재시작 버튼. 클릭 시 onRestartClicked 함수가 호출됩니다. -->
+    <div id="restartButton" class="restartButton">
+        <button onclick="onRestartClicked(this);">재도전!</button>
+    </div>
+</div>
+
+<!-- 게임에 사용되는 오디오 파일을 불러오는 부분 -->
+<!-- 각 오디오에는 고유한 ID가 부여되어 있으며, 이를 통해 JavaScript에서 해당 오디오를 제어할 수 있습니다. -->
+
+<!-- 운전 중의 차량 소리 -->
+<audio id="driving">
+    <source src="sounds/base.mp3" type="audio/mp3" />
+    <!-- 브라우저가 WAV 파일 형식을 지원하지 않을 경우 표시되는 메시지 -->
+    Your browser does not support WAV files in the audio element.
+</audio>
+
+<!-- 짧은 엔진 소리 -->
+<audio id="rev_short">
+    <!-- <source src="sounds/rev-short.wav" type="audio/wav" /> -->
+    Your browser does not support WAV files in the audio element.
+</audio>
+
+<!-- 긴 엔진 소리 -->
+<audio id="rev_long">
+    <!-- <source src="sounds/rev-trimmed.wav" type="audio/wav" /> -->
+    Your browser does not support WAV files in the audio element.
+</audio>
+
+<!-- 충돌 시 발생하는 소리 -->
+<audio id="bounce">
+    <!-- <source src="sounds/bounce.wav" type="audio/wav" /> -->
+    Your browser does not support WAV files in the audio element.
+</audio>
+
+<!-- 크래쉬 사운드 -->
+<audio id="crash">
+    <!-- <source src="sounds/crash-trimmed.wav" type="audio/wav" /> -->
+    Your browser does not support WAV files in the audio element.
+</audio>
+
+</body>
+</html>

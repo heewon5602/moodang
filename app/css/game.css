@@ -1,0 +1,102 @@
+body, html, div, canvas, p, audio{margin: 0; padding: 0;}
+* {font-family: Arial;}
+body{background-color:#eeeeee;color:#212121;}
+p{line-height: 47px;height: 47px;}
+#container{z-index:-1;}
+
+#kmph {
+  color:White;
+  text-align:center;
+  left: 38%;
+  width: 120px;
+  height: 140px;
+  bottom:6%;
+  position:absolute;
+  display:none;
+}
+	
+#speedometer {
+  text-align:left;
+  left:0px;
+  top:0px;
+  width: 120px;
+  height: 120px;
+  position:absolute;
+}
+
+#rpm {
+  color:White;
+  text-align:center;
+  left: 57%;
+  width: 120px;
+  height: 140px;
+  bottom:6%;
+  position:absolute;
+  display:none;
+}
+
+#tachometer {
+  text-align:left;
+  left:0px;
+  top:0px;
+  width: 120px;
+  height: 120px;
+  position:absolute;
+}
+
+#odometer {
+  color:Lime;
+  text-align:center;
+  left: 50%;
+  width: 60px;
+  height: 20px;
+  bottom:17%;
+  position:absolute;
+  font-size:12pt;
+  display:none;
+}
+
+#elapsedTime {
+  color:Lime;
+  text-align:center;
+  left: 50%;
+  width: 60px;
+  height: 20px;
+  bottom:7%;
+  position:absolute;
+  font-size:12pt;
+  display:none;
+}
+
+.overlay {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 6px;
+	display:none;
+	text-align:center;
+	margin:auto;
+	padding:10px;
+	width:240px;
+	height:180px;
+	background-color:rgba(200, 200, 200, .8);	
+	z-index:0;
+	position:absolute;
+	border:3px solid  DarkBlue;
+	color:Red;
+	left:10%;
+	top:33%;
+}
+
+.overlay .contents {
+	color:Black;
+	text-align:left;
+  font-weight: bold;
+  padding: 0 12px;
+}
+
+.overlay .header {
+	text-align:center;
+  font-weight: bold;
+	font-size: 24px;
+}
+.overlay #restartButton button{ padding: 9px 20px; margin-top: 15px; border-radius: 5px;border: 0px;background: #fff;}

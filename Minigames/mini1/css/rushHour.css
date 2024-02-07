@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    height: inherit;
+    width: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    box-sizing: border-box;
+    position: relative;
+}
+
+button {
+    outline: none;
+}
+
+body {
+    background-size: cover;
+    font-family: 'Skranji', cursive;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.instructions-container {
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.title {
+    font-size: 45px;
+}
+
+.instructions {
+    font-size: 25px;
+}
+
+.instructions-note {
+    font-size: 15px;
+}
+
+.icon-links a {
+    font-size: 30px;
+    margin: 5px;
+}
+
+.icon-links a:hover {
+    color: #4885ed;
+}
+
+#rush-hour {
+    border: 10px solid #ccc;
+    margin: 0 auto;
+    border-radius: 10px;
+    background: #000;
+    width: 380px;
+}
+
+ul, ol {
+    list-style-type: none;
+    height: 60px;
+    display: flex;
+    width: 100%;
+}
+
+li {
+    width: 60px;
+    border: 1px solid #808080;
+}
+
+.exit {
+    font-size: 25px;
+    color: #EA1821;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 2px 10px;
+    position: absolute;
+    top: 140px;
+    right: -45px;
+    z-index: 1;
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.red {
+    /*background-color: #EA1821;
+    /*EE1122*/
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 40%,transparent 42%,transparent 100%),
+				radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 60%,transparent 62%,transparent 100%),
+				radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 50%,transparent 52%,transparent 100%),
+				radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 60%,transparent 62%,transparent 100%);
+	background-color: red;
+	background-repeat: no-repeat;
+	background-position: 0px 0px, 30px 0px, 30px 30px, 0px 30px;
+	background-size: 30px 30px;
+	position: relative;
+    border: none;
+}
+.green {
+    background-color: #88CC33;
+    border: none;
+}
+.dgreen {
+    background-color: #006400;
+    border: none;
+}
+.yellow {
+    background-color: #FFFF46;
+    border: none;
+}
+.yellow2 {
+    background-color: #FFFF96;
+    border: none;
+}
+.purple {
+    background-color: #8E1E9C;
+    border: none;
+}
+.blue {
+    background-color: #4545FF;
+    border: none;
+}
+.sblue {
+    background-color: #5AD2FF;
+    border: none;
+}
+.navy {
+    background-color: #000069;
+    border: none;
+}
+.orange {
+    background-color: #FFAA00;
+    border: none;
+}
+.pink {
+    background-color: #FF1493;
+    border: none;
+}
+.pink2 {
+    background-color: #DF75DB;
+    border: none;
+}
+.white {
+    background-color: #dcdcdc;
+    border: none;
+}
+
+.brown {
+    background-color: #8B4513;
+    border: none;
+}		
+
+
+.car:hover {
+    cursor: pointer;
+}
+
+.car-body {
+    border: 2px solid white;
+}
+
+.selected {
+    animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.win-phrase {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    font-size: 60px;
+    top: 150px;
+    left: 60px;
+    animation: fadetext 0.8s ease 0s 1 normal forwards;
+}
+
+.show {
+    display: block;
+}
+
+@keyframes fadetext {
+    0% { opacity: 0; transform: translateY(80px)}
+    100%  { opacity: 1; transform: translateY(0px)}
+}
+
+.levels-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.levels {
+    background: #fff;
+    width: 380px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    font-size: 30px;
+    border: 3px solid black;
+}
+
+.current-level {
+    color: green;
+}
+
+.levels > * {
+    display: flex;
+    justify-content: center;
+}
+
+.scroll-button {
+    top: 230px;
+    left: -145px;
+    font-size: 25px;
+}
+
+.disclaimer {
+    font-size: 15px;
+    margin: 5px;
+}
+
+.disclaimer a {
+    color: blue;
+}
+
+.exit-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
